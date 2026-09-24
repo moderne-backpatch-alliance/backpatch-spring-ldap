@@ -1,0 +1,17 @@
+schema: osera-patch-evidence/0.1.0
+producer: moderne
+release: 2.4.4.1-backpatch-00001
+baseline: v2.4.4+backpatch.baseline
+fixes:
+  - cve: CVE-2026-41720
+    upstream: https://nvd.nist.gov/vuln/detail/CVE-2026-41720
+    artifacts:
+      - org.springframework.ldap:spring-ldap-core
+    note: New in this release; ported onto 2.4.4; fixed at 2.4.4.1-backpatch-00001 (backpatch-spring-ldap@d2429cd).
+tests:
+  commit: d2429cdb59a849fde3a009103ce5ae907fe4c0b8
+  command: ./gradlew --quiet -I init-backpatch.gradle -Dbackpatch.version=2.4.4.1-backpatch-00001 -Dbackpatch.repository.url=file:///tmp/osera-unused-repo -Dbackpatch.compile.jdk=17 -p core test --rerun-tasks --tests org.springframework.ldap.core.support.EmptyPasswordBindRejectionTests
+  runtime: OpenJDK 17.0.9 (Zulu), Gradle wrapper of the repository
+  report: spring-ldap-core-2.4.4.1-backpatch-00001-tests.zip
+  result: pass
+  note: the regression tests the fix commits touched, 3 test(s) run, 0 failed, at the tested commit
